@@ -1,5 +1,6 @@
 import React from 'react'
-import logo from "./logo-stackoverflow.png";
+import logo from "../../images/logo.png";
+import logoText from "../../images/logo-stackoverflow.png";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,13 +8,14 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import ClearIcon from '@material-ui/icons/Clear';
 import SideMenu from "../sidemenu/SideMenu";
-import Grid from "@material-ui/core/Grid";
+import {autocompleteItems} from "./autoCompleteItems";
 const useStyles = makeStyles((theme)=>({
     root : {
         flexGrow: 1
@@ -27,9 +29,15 @@ const useStyles = makeStyles((theme)=>({
         color:"#848D95",
         paddingBottom: theme.spacing(3)
     },
-    image: {
-        width:"150px",
-        marginLeft: theme.spacing(1.5),
+    logo: {
+        width:"40px",
+        paddingBottom: theme.spacing(2),
+        '&:hover':{
+            cursor: 'pointer',
+        }
+    },
+    logoText: {
+        width : "100px",
         paddingBottom: theme.spacing(2),
         '&:hover':{
             cursor: 'pointer',
@@ -51,6 +59,7 @@ const useStyles = makeStyles((theme)=>({
     },
     menu: {
         color:"#7C8186",
+        float: "left",
         paddingLeft: theme.spacing(4),
         paddingBottom: theme.spacing(1.5),
         '&:hover':{
@@ -86,14 +95,69 @@ const useStyles = makeStyles((theme)=>({
         }
     },
     dropDownMenu:{
-        marginTop: theme.spacing(4)
+        marginTop: theme.spacing(5)
     },
     dropDownMenuPaper:{
-        width: 530
+        width: 540,
+    },
+    autocompleteItem : {
+        padding : theme.spacing(0.5)
+    },
+    autocompleteItem1 : {
+        fontFamily : 'consolas',
+        fontSize : '13px'
+    },
+    autocompleteItemText2 : {
+        fontFamily: 'arial',
+        fontSize : '13px',
+        color: '#9fa6ad'
+    },
+    autoCompleteAction: {
+       marginBottom : theme.spacing(3),
+    },
+    autoCompleteButton: {
+        float: 'left',
+    },
+    autoCompleteLink: {
+        float: 'right'
+    },
+    askQBtn : {
+        fontSize : '10px',
+        background: '#DEEBF3',
+        padding : theme.spacing(0.8),
+        border: "1px solid",
+        borderColor: "#7AA7C7",
+        boxShadow: 'none',
+        '&:hover' : {
+            background:"#b3d3ea",
+        },
+        marginLeft : theme.spacing(2),
+        marginBottom : theme.spacing(2)
+    },
+    link : {
+        color: '#39739D',
+        textDecoration: 'none'
+    },
+    searchLink : {
+        color: '#39739D',
+        textDecoration: 'none',
+        fontSize : '14px',
+        marginRight: theme.spacing(2),
+        marginTop : theme.spacing(5)
+    },
+    hr : {
+        marginTop :theme.spacing(3),
+        marginBottom : theme.spacing(1),
+        backgroundColor: 'lightGrey',
+        border: 'none',
+        height: "0.5px"
     }
 }));
 
-export default function Header() {
+
+
+
+export default function Header({width}) {
     const classes = useStyles();
     const [anchorState, setAnchorState] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -110,6 +174,36 @@ export default function Header() {
         setAnchorState(!anchorState)
     }
 
+    const AutocompleteSection = () => (
+        <>
+            <Grid container spacing={0}>
+                    { autocompleteItems.map((element)=> (
+                        <Grid item xs={6}>
+                            <div className={classes.autocompleteItem}>
+                                <span className={classes.autocompleteItemText1}>{element.text1}</span>&nbsp;
+                                <span className={classes.autocompleteItemText2}>{element.text2}</span>
+                            </div>
+                        </Grid>
+                        ))
+                    }  
+            </Grid>
+            <hr className= {classes.hr}/>
+            <div className={classes.autoCompleteAction}>
+                <div className={classes.autoCompleteButton}>
+                    <a href="/" className={classes.link}>
+                        <Button variant='contained' className={classes.askQBtn}>
+                            Ask a question
+                        </Button>
+                    </a>    
+            </div>
+                <div className={classes.autoCompleteLink}>
+                    <a href="/" className={classes.searchLink}>
+                        Search help
+                    </a>
+                </div>
+            </div>
+        </>
+    )
 
     return (
         <div className = {classes.root}>
@@ -119,15 +213,10 @@ export default function Header() {
                         {leftMenu?<ClearIcon/>:<MenuIcon />}
                         <SideMenu anchorState={anchorState}/>
                     </IconButton>
-                    <img src={logo} className={classes.image}/>
+                    <img src={logo} className={classes.logo} alt="logo"/>
+                    {width > 800 && <img src = {logoText} className={classes.logoText}/>}
                     <Typography variant="h9" className={classes.menu}>
                         About
-                    </Typography>
-                    <Typography variant="h9" className={classes.menu}>
-                        Product
-                    </Typography>
-                    <Typography variant="h9" className={classes.menu}>
-                        For Teams
                     </Typography>
                     <Paper component="form" className={classes.paper} elevation={0}>
                         <IconButton className={classes.iconButton} aria-label="menu">
@@ -148,7 +237,7 @@ export default function Header() {
                             className={classes.dropDownMenu}
                         >
                             <Paper elevation={0}  className={classes.dropDownMenuPaper}>
-                                Hello D
+                                {AutocompleteSection()}
                             </Paper>
                         </Menu>
                     </Paper>
