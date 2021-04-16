@@ -13,7 +13,7 @@ import GithubLogo from "../images/logo4.svg";
 import FacebookLogo from "../images/logo6.webp";
 import Card from "../components/SimpleCard";
 import ReCAPTCHA from "react-google-recaptcha";
-import {Auth} from 'aws-amplify';
+
 
 const useStyles = makeStyles((theme)=>({
     buttons:{
@@ -133,19 +133,8 @@ function Signup() {
 
     const handleForm = async (e) => {
         e.preventDefault();
-        try {
-            const { user } = await Auth.signUp({
-                username,
-                password,
-                attributes: {
-                    email, 
-                }
-            });
-            console.log(user);
-        } catch (error) {
-            console.log('error signing up:', error);
-        }
     }
+    
     const CardContent = () => (
         <div className={classes.cardContent}>
             <form onSubmit={(e)=> handleForm(e)}>
