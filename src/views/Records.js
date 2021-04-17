@@ -7,6 +7,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import {makeStyles} from "@material-ui/core/styles"; 
 import {RecordsData} from "../recordsData";
 import {aboutListData} from "../aboutListData";
@@ -99,11 +100,16 @@ const useStyles = makeStyles((theme)=>({
         marginLeft : theme.spacing(-2),
         marginRight : theme.spacing(2),
         marginBottom : theme.spacing(1)
+    },
+    expandIcon : {
+        textAlign : 'center',
+        color: '#696969'
     }
 }))
 
 
 function Records() {
+    const [expanded, setExpanded] = React.useState(false);
     const classes = useStyles();
     const CardContent = () => (
         <div>
@@ -129,7 +135,6 @@ function Records() {
                     RecordsData.map((Record)=>( 
                     <Accordion square={true} elevation={0}>
                         <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                         >
@@ -169,6 +174,12 @@ function Records() {
                                                 <Paper className={classes.tag} elevation={0}>{tag}</Paper>&nbsp;&nbsp;
                                             </>    
                                         ))
+                                    }
+                                </div>
+                                <br/>
+                                <div className={classes.expandIcon}>
+                                    {
+                                       !expanded ? <ExpandMoreIcon/> : <ExpandLessIcon/>
                                     }
                                 </div>
                             </Grid>

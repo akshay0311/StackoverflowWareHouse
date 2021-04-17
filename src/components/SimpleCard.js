@@ -8,8 +8,8 @@ const useStyles = makeStyles((theme)=>({
     card: {
         width: props => props.cardWidth,
         background : props => props.background && props.background,
-        marginBottom: theme.spacing(5),
-        minWidth : '290px'
+        marginBottom: theme.spacing(1.5),
+        minWidth : '280px'
     }
 }))
 

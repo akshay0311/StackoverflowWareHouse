@@ -8,7 +8,7 @@ import GoogleLogo from "../images/logo2.png";
 import GithubLogo from "../images/logo4.svg";
 import FacebookLogo from "../images/fb_logo.png";
 import {Link} from "react-router-dom";
-
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles((theme)=>({
     root:{
@@ -33,16 +33,16 @@ const useStyles = makeStyles((theme)=>({
     googleButton : {
         boxShadow : "none",
         background : "#E8E8E8",
-        width : "23%",
+        width : "20%",
         minWidth : '280px',
         fontSize : "12px",
-        '&:hover': {background:"white" }
+        '&:hover': {background:"#E8E8E8" }
     },
     gitButton : {
         boxShadow : "none",
         background : "#242729",
         color : "white",
-        width : "23%",
+        width : "20%",
         minWidth : '280px',
         fontSize : "12px",
         '&:hover': {background:"#242729" }
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme)=>({
         boxShadow : "none",
         background : "#385499",
         color : "white",
-        width : '23%',
+        width : '20%',
         minWidth : '280px',
         fontSize : "12px",
         '&:hover': {background:"#385499" }
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme)=>({
         color : "white",
         marginBottom : theme.spacing(1),
         marginLeft : theme.spacing(0.8),
-        width : "95%",
+        width : "105%",
         '&:hover': {
             background : "#0077cc"
         }
@@ -84,7 +84,6 @@ const useStyles = makeStyles((theme)=>({
     signUpLink: { 
         textDecoration : "none",
         color: "#008AD6",
-        lineHeight: "17px"
     }
 }))
 
@@ -101,29 +100,31 @@ function Login(props) {
                 <strong className={classes.label}>Password</strong><br/>
                 <TextField variant = "outlined" className= {classes.textField} InputLabelProps={{shrink: false}} size="small"/>
             </div>
-            <br/>
+            <br/><br/>
             <Button variant = "contained" className={classes.loginButton}>Login</Button>
         </div>    
     )
     
     return (
-        <div className={classes.root}>
-            <img src={Logo} className={classes.image} alt="logo"/><br/>
-            <Button variant="contained" className={classes.googleButton} startIcon = {<img src={GoogleLogo} className={classes.logo} alt="logo"/>}
-            >Login in with Google</Button><br/>
-            <Button variant="contained" className={classes.gitButton} startIcon = {<img src={GithubLogo} className={classes.logo}  alt="logo"/>}>
-            Login in with Github</Button><br/>
-            <Button variant="contained" className={classes.fbButton} startIcon = {<img src={FacebookLogo} className={classes.fbLogo}  alt="logo"/>}>Login in with Facebook</Button><br/>
-            <br/>
-            <Card content={CardContent()} width="23%"/><br/>
-            <br/>
-            <div className = {classes.signUp}>Don’t have an account? {' '}
-                <Link to="#" className = {classes.signUpLink}>Sign up</Link> 
-            </div>
-            <div className = {classes.signUp}>Are you an employer? {' '}
-                <Link to ="#" className = {classes.signUpLink}>Sign up on Talent</Link>
-            </div><br/><br/>
-        </div>
+        <Grid container>
+            <Grid item xs={4}></Grid>
+            <Grid item xs={5}>
+                <div className={classes.root}>
+                    <img src={Logo} className={classes.image} alt="logo"/><br/>
+                    <Button variant="contained" className={classes.googleButton} startIcon = {<img src={GoogleLogo} className={classes.logo} alt="logo"/>}
+                    >Login in with Google</Button><br/>
+                    <Button variant="contained" className={classes.gitButton} startIcon = {<img src={GithubLogo} className={classes.logo}  alt="logo"/>}>
+                    Login in with Github</Button><br/>
+                    <Button variant="contained" className={classes.fbButton} startIcon = {<img src={FacebookLogo} className={classes.fbLogo}  alt="logo"/>}>Login in with Facebook</Button><br/>
+                    <br/>
+                    <Card content={CardContent()} width="23%"/><br/>
+                    <div className = {classes.signUp}>Don’t have an account? {' '}
+                        <Link to="/signup" className = {classes.signUpLink}>Sign up</Link> 
+                    </div><br/><br/>
+                </div>
+            </Grid>   
+            <Grid item xs={3}></Grid> 
+        </Grid>    
     )
 }
 

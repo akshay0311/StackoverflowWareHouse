@@ -8,14 +8,13 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import ClearIcon from '@material-ui/icons/Clear';
 import SideMenu from "../sidemenu/SideMenu";
-import {autocompleteItems} from "./autoCompleteItems";
+import SearchBar from "material-ui-search-bar";
 const useStyles = makeStyles((theme)=>({
     root : {
         flexGrow: 1
@@ -26,13 +25,17 @@ const useStyles = makeStyles((theme)=>({
         boxShadow: "none"
     },
     menuButton: {
+        marginRight: theme.spacing(-2),
         color:"#848D95",
-        paddingBottom: theme.spacing(3),
+        paddingBottom: theme.spacing(1),
         [theme.breakpoints.up('sm')]: {
             display: 'none'
         }
     },
     logo: {
+        [theme.breakpoints.down('sm')]:{
+            width: '40px'
+        },
         width:"50px",
         paddingBottom: theme.spacing(2),
         '&:hover':{
@@ -47,6 +50,10 @@ const useStyles = makeStyles((theme)=>({
         }
     },
     paper: {
+        [theme.breakpoints.down('sm')] : {
+            width : 200,
+            marginLeft:0
+        },
         marginLeft: theme.spacing(6),
         marginBottom: theme.spacing(3),
         marginTop: theme.spacing(2),
@@ -70,9 +77,9 @@ const useStyles = makeStyles((theme)=>({
         }
     },
     signUpButton:{
-        padding: theme.spacing(0.8),
+        padding: theme.spacing(0.9),
         marginBottom: theme.spacing(1),
-        fontSize: "12px",
+        fontSize: "11px",
         marginLeft: theme.spacing(1.5),
         boxShadow: "none",
         background:"#0095FF",
@@ -85,7 +92,7 @@ const useStyles = makeStyles((theme)=>({
     loginInButton:{
         padding: theme.spacing(0.8),
         marginBottom: theme.spacing(1),
-        fontSize: "12px",
+        fontSize: "11px",
         border: "1px solid",
         borderColor: "#7AA7C7",
         marginLeft: theme.spacing(1.5),
@@ -98,31 +105,16 @@ const useStyles = makeStyles((theme)=>({
         }
     },
     dropDownMenu:{
-        marginTop: theme.spacing(5)
+        marginTop: theme.spacing(5),
     },
     dropDownMenuPaper:{
         width: 540,
     },
-    autocompleteItem : {
-        padding : theme.spacing(0.5)
-    },
-    autocompleteItem1 : {
-        fontFamily : 'consolas',
-        fontSize : '13px'
-    },
-    autocompleteItemText2 : {
-        fontFamily: 'arial',
-        fontSize : '13px',
-        color: '#9fa6ad'
-    },
-    autoCompleteAction: {
-       marginBottom : theme.spacing(3),
-    },
-    autoCompleteButton: {
-        float: 'left',
-    },
-    autoCompleteLink: {
-        float: 'right'
+    searchBar: {
+        height : '40px',
+        background : '#F8F8F8',
+        marginLeft : theme.spacing(2),
+        marginBottom : theme.spacing(2)
     },
     askQBtn : {
         fontSize : '10px',
@@ -147,13 +139,6 @@ const useStyles = makeStyles((theme)=>({
         fontSize : '14px',
         marginRight: theme.spacing(2),
         marginTop : theme.spacing(5)
-    },
-    hr : {
-        marginTop :theme.spacing(3),
-        marginBottom : theme.spacing(1),
-        backgroundColor: 'lightGrey',
-        border: 'none',
-        height: "0.5px"
     }
 }));
 
@@ -179,32 +164,14 @@ export default function Header({width}) {
 
     const AutocompleteSection = () => (
         <>
-            <Grid container spacing={0}>
-                    { autocompleteItems.map((element)=> (
-                        <Grid item xs={6}>
-                            <div className={classes.autocompleteItem}>
-                                <span className={classes.autocompleteItemText1}>{element.text1}</span>&nbsp;
-                                <span className={classes.autocompleteItemText2}>{element.text2}</span>
-                            </div>
-                        </Grid>
-                        ))
-                    }  
-            </Grid>
-            <hr className= {classes.hr}/>
-            <div className={classes.autoCompleteAction}>
-                <div className={classes.autoCompleteButton}>
-                    <a href="/" className={classes.link}>
-                        <Button variant='contained' className={classes.askQBtn}>
-                            Ask a question
-                        </Button>
-                    </a>    
-            </div>
-                <div className={classes.autoCompleteLink}>
-                    <a href="/" className={classes.searchLink}>
-                        Search help
-                    </a>
+            <div>
+                <div>
+                    <SearchBar className={classes.searchBar} placeholder="Search questions by tags" />
+                    <Button variant='contained' className={classes.askQBtn}>
+                        Search
+                    </Button>  
                 </div>
-            </div>
+            </div>     
         </>
     )
 
@@ -227,6 +194,7 @@ export default function Header({width}) {
                             placeholder="Search ..."
                             inputProps={{ 'aria-label': 'search google maps' }}
                             onClick={handleClick}
+                            disabled
                         />
                          <Menu
                             id="simple-menu"

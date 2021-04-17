@@ -1,16 +1,11 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
-import Icon from '@material-ui/core/Icon';
 import {makeStyles} from "@material-ui/core/styles"; 
 import GoogleLogo from "../images/logo2.png";
 import GithubLogo from "../images/logo4.svg";
-import FacebookLogo from "../images/logo6.webp";
+import FacebookLogo from "../images/fb_logo.png";
 import Card from "../components/SimpleCard";
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -29,11 +24,11 @@ const useStyles = makeStyles((theme)=>({
     },
     googleButton : {
         boxShadow : "none",
-        background : "white",
+        background : "#E8E8E8",
         width : "40%",
         minWidth : '280px',
         fontSize : "12px",
-        '&:hover': {background:"white" }
+        '&:hover': {background:"#E8E8E8" }
     },
     gitButton : {
         boxShadow : "none",
@@ -58,30 +53,14 @@ const useStyles = makeStyles((theme)=>({
         height: "25px",
         width : "25px"
     },
-    leftHeader : {
-        marginBottom: theme.spacing(0),
-        marginLeft : theme.spacing(2),
-        fontSize: "27px",
-        fontFamily: 'Arial, "Helvetica Neue", Helvetica, sans-serif'
-    },
-    listItem : {
-        fontSize : '15px'
-    },
-    listItemText : {
-        marginLeft: theme.spacing(-1)
-    },
-    listIcon : {
-        marginRight : theme.spacing(-1.5)
-    },
     label : {
         float : "left",
         marginBottom: theme.spacing(1)
     },
     card: {   
-        alignItems: window.innerWidth > 800 ? 'left' : 'center',
+        alignItems: 'center',
         display : "flex",
         flexDirection : "column", 
-        marginLeft: theme.spacing(1.5)
     },
     textField: {
         width : "100%"
@@ -100,7 +79,7 @@ const useStyles = makeStyles((theme)=>({
             color : "white",
             marginBottom : theme.spacing(1),
             marginLeft : theme.spacing(0.8),
-            width : "95%",
+            width : "100%",
             '&:hover': {
                 background : "#0077cc"
         },
@@ -108,13 +87,16 @@ const useStyles = makeStyles((theme)=>({
     icon : {
         color : '#0095FF',
     },
-    policy : {
-        fontSize : '13px'
-    },
     login: {
         fontSize: '15px',
         textDecoration : 'none',
-        marginLeft : theme.spacing(0.5)
+        marginLeft : theme.spacing(0.5),
+    },
+    loginLink : {
+        fontSize: '15px',
+        textDecoration : 'none',
+        marginLeft : theme.spacing(0.5),
+        color: "#008AD6"
     },
     loginWrapper : {
         display : 'flex',
@@ -174,11 +156,10 @@ function Signup() {
                         onChange={captchaLoaded}
                     /> 
                 </div>
-                <br/>
+                <br/><br/>
                 <Button type='submit' varaint = "contained" className={classes.signupButton}>Signup Up</Button>
             </form> 
             <br/>
-            <p className={classes.policy}>By clicking “Sign up”, you agree to our terms of service, privacy policy and cookie policy</p>   
         </div>    
     )
 
@@ -186,9 +167,9 @@ function Signup() {
 
     return (
         <Grid container spacing={0}>
-            <Grid item sm={5} xs={12}>
+            <Grid item sm={4} xs={12}>
             </Grid>
-            <Grid item sm={7} xs={12}>
+            <Grid item sm={5} xs={12}>
                 <div className={classes.buttons}>
                     <Button variant="contained" className={classes.googleButton} startIcon = {<img src={GoogleLogo} className={classes.logo} alt="logo"/>}
                     >Sign up with Google</Button><br/>
@@ -199,40 +180,19 @@ function Signup() {
                 </div>
                 <br/>
             </Grid>
-            <Grid item sm={2} xs={12} className={classes.leftColumn}>
+            <Grid item sm={3} xs={12}></Grid>
+            <Grid item sm={4} xs={12}>
             </Grid>
-            { window.innerWidth > 800 &&
-                <Grid item sm={5} xs={12}>
-                <div>
-                <p className={classes.leftHeader}>Join the Stack Overflow community</p>
-                <List>
-                    {
-                    [{text:"Get unstuck — ask a question",icon:"announcement"},
-                    {text:"Unlock new privileges like voting and commenting",icon:"eject"},
-                    {text:"Save your favorite tags, filters, and jobs",icon:"local_offer"},
-                    {text:"Earn reputation and badges",icon:"announcement"},
-                    ].map((listItem)=>(
-                        <ListItem className={classes.listItem}>
-                            <ListItemIcon className = {classes.listIcon}>
-                                <Icon className={classes.icon}>{listItem.icon}</Icon>
-                            </ListItemIcon>
-                            <ListItemText primary={listItem.text} className={classes.listItemText} />
-                        </ListItem>
-                    ))
-                }
-                </List>
-                </div>
-                </Grid>
-            }
             <Grid item sm={5} xs={12}>
                 <div className={classes.card}>
-                    <Card content={CardContent()} cardWidth="58%"/>
+                    <Card content={CardContent()} cardWidth="30%"/>
                     <div className={classes.loginWrapper}>
                         <p className={classes.login}>Already have an account? 
-                        <a href="/" className={classes.login}>Log in</a></p>
+                        <a href="/" className={classes.loginLink}>Log in</a></p>
                     </div>    
                 </div>
             </Grid>
+            <Grid item sm={3}></Grid>
         </Grid>
     )
 }
