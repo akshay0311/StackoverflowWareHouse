@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles((theme)=>({
     card: {
         width: props => props.cardWidth,
+        background : props => props.background && props.background,
         marginBottom: theme.spacing(5),
         minWidth : '290px'
     }

@@ -27,29 +27,32 @@ const useStyles = makeStyles((theme)=>({
     },
     menuButton: {
         color:"#848D95",
-        paddingBottom: theme.spacing(3)
+        paddingBottom: theme.spacing(3),
+        [theme.breakpoints.up('sm')]: {
+            display: 'none'
+        }
     },
     logo: {
-        width:"40px",
+        width:"50px",
         paddingBottom: theme.spacing(2),
         '&:hover':{
             cursor: 'pointer',
         }
     },
     logoText: {
-        width : "100px",
+        width : "120px",
         paddingBottom: theme.spacing(2),
         '&:hover':{
             cursor: 'pointer',
         }
     },
     paper: {
-        marginLeft: theme.spacing(3),
+        marginLeft: theme.spacing(6),
         marginBottom: theme.spacing(3),
         marginTop: theme.spacing(2),
         display: 'flex',
         alignItems: 'center',
-        width: 590,
+        width: 750,
         height: 34,
         border:"1px solid lightGrey"
     },
@@ -209,15 +212,12 @@ export default function Header({width}) {
         <div className = {classes.root}>
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" onClick={handleLeftMenu}>
-                        {leftMenu?<ClearIcon/>:<MenuIcon />}
+                    <IconButton edge="start" color="inherit" onClick={handleLeftMenu}>
+                        {leftMenu?<ClearIcon className={classes.menuButton}/>:<MenuIcon  className={classes.menuButton}/>}
                         <SideMenu anchorState={anchorState}/>
                     </IconButton>
                     <img src={logo} className={classes.logo} alt="logo"/>
                     {width > 800 && <img src = {logoText} className={classes.logoText}/>}
-                    <Typography variant="h9" className={classes.menu}>
-                        About
-                    </Typography>
                     <Paper component="form" className={classes.paper} elevation={0}>
                         <IconButton className={classes.iconButton} aria-label="menu">
                             <SearchIcon/>

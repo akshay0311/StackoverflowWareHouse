@@ -9,13 +9,23 @@ import {Public} from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme)=>({
+    root1 : {
+        [theme.breakpoints.down('sm')]: {
+            display: 'none'
+        }
+    },
+    root2 : {
+        [theme.breakpoints.up('sm')]: {
+            display: 'none'
+        }
+    },
     drawer:{
         height: 'calc(100% - 60px)',
         top: '60px'
     },
     list: {
         width: 250,
-        background: "#EFF0F1"
+        //background: "#EFF0F1"
     },
     listItemText:{
         margin: 0,
@@ -86,10 +96,17 @@ export default function SideMenu({anchorState}) {
     )
 
     return (
-        <div>
-            <Drawer open={anchorState} classes={{paper:classes.drawer}}>
-                {list()}
-            </Drawer>
-        </div>
+        <>
+            <div className={classes.root1}>
+                <Drawer variant='persistent'  open classes={{paper:classes.drawer}}>
+                    {list()}
+                </Drawer>
+            </div>
+            <div className={classes.root2}>
+                <Drawer  open={anchorState} classes={{paper:classes.drawer}}>
+                    {list()}
+                </Drawer>
+            </div>
+        </>
     )
 }

@@ -3,6 +3,8 @@ import Header from "./components/header/Header";
 import {BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./views/Login";
 import Signup from "./views/Signup";
+import Records from "./views/Records";
+
 
 function App() {
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
@@ -23,6 +25,10 @@ function App() {
             <Signup windowWidth={windowWidth} />
             )}
           />
+          <Route path = "/records"
+          render = {() => (
+            <Records/>
+          )}/>
         </Switch>
       </div>
     </Router>  
