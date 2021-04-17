@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Logo from "../images/logo.png";
 import GoogleLogo from "../images/logo2.png";
 import GithubLogo from "../images/logo4.svg";
-import FacebookLogo from "../images/logo6.webp";
+import FacebookLogo from "../images/fb_logo.png";
 import {Link} from "react-router-dom";
 
 
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme)=>({
     },
     googleButton : {
         boxShadow : "none",
-        background : "white",
+        background : "#E8E8E8",
         width : "23%",
         minWidth : '280px',
         fontSize : "12px",
