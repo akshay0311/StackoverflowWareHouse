@@ -8,7 +8,6 @@ import Records from "./views/Records";
 
 function App() {
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
-  
   return (
     <Router>
       <div>

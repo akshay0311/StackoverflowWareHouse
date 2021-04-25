@@ -107,8 +107,8 @@ function Login(props) {
     
     return (
         <Grid container>
-            <Grid item xs={4}></Grid>
-            <Grid item xs={5}>
+            <Grid item sm={4} xs={12}></Grid>
+            <Grid item sm={5} xs={12}>
                 <div className={classes.root}>
                     <img src={Logo} className={classes.image} alt="logo"/><br/>
                     <Button variant="contained" className={classes.googleButton} startIcon = {<img src={GoogleLogo} className={classes.logo} alt="logo"/>}
@@ -123,7 +123,7 @@ function Login(props) {
                     </div><br/><br/>
                 </div>
             </Grid>   
-            <Grid item xs={3}></Grid> 
+            <Grid item sm={3} xs={12}></Grid> 
         </Grid>    
     )
 }

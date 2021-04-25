@@ -4,7 +4,6 @@ import logoText from "../../images/logo-stackoverflow.png";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
@@ -14,15 +13,19 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import ClearIcon from '@material-ui/icons/Clear';
 import SideMenu from "../sidemenu/SideMenu";
-import SearchBar from "material-ui-search-bar";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import {autocompleteTags} from "./autoCompleteTags";
+import TextField from '@material-ui/core/TextField';
+
 const useStyles = makeStyles((theme)=>({
     root : {
-        flexGrow: 1
+        flexGrow: 1,
+        marginBottom : theme.spacing(8)
     },
     appBar:{
         height:55,
         background:"#FAFAFB",
-        boxShadow: "none"
+        boxShadow: "none",
     },
     menuButton: {
         marginRight: theme.spacing(-2),
@@ -139,6 +142,10 @@ const useStyles = makeStyles((theme)=>({
         fontSize : '14px',
         marginRight: theme.spacing(2),
         marginTop : theme.spacing(5)
+    },
+    autoComplete : {
+        marginLeft : theme.spacing(3),
+        marginRight : theme.spacing(3)
     }
 }));
 
@@ -163,21 +170,30 @@ export default function Header({width}) {
     }
 
     const AutocompleteSection = () => (
-        <>
-            <div>
-                <div>
-                    <SearchBar className={classes.searchBar} placeholder="Search questions by tags" />
-                    <Button variant='contained' className={classes.askQBtn}>
-                        Search
-                    </Button>  
-                </div>
-            </div>     
-        </>
+        <div className = {classes.autoComplete}>
+            <Autocomplete
+            multiple
+            id="tags-standard"
+            options={autocompleteTags}
+            getOptionLabel={(option) => option.tag}
+            renderInput={(params) => (
+            <TextField
+                {...params}
+                variant="standard"
+                label="Search By Tags"
+                placeholder="Tags"
+            />
+            )}/>
+            <br/>
+            <Button variant='contained' className={classes.askQBtn}>
+                Search
+            </Button>  
+        </div>    
     )
 
     return (
         <div className = {classes.root}>
-            <AppBar position="static" className={classes.appBar}>
+            <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" onClick={handleLeftMenu}>
                         {leftMenu?<ClearIcon className={classes.menuButton}/>:<MenuIcon  className={classes.menuButton}/>}

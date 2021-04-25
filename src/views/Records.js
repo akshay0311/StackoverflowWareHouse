@@ -12,8 +12,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import {RecordsData} from "../recordsData";
 import {aboutListData} from "../aboutListData";
 import {Create} from "@material-ui/icons";
-import {List,ListItem, ListItemIcon, ListItemText} from "@material-ui/core";
-
+import {List,ListItem,ListItemText} from "@material-ui/core";
+import RecordAccordionDetail from "../components/RecordAccordionDetail";
 
 
 const useStyles = makeStyles((theme)=>({
@@ -23,6 +23,25 @@ const useStyles = makeStyles((theme)=>({
             marginLeft : theme.spacing(-6.5)
         },
         marginTop : theme.spacing(0.5)
+    },
+    header : {
+        borderBottom: '1px solid lightGrey',
+        paddingBottom : theme.spacing(2),
+        display : 'flex',
+        flexDirection : 'column',
+        paddingLeft: theme.spacing(4),
+        [theme.breakpoints.up('sm')]: {
+            marginLeft : theme.spacing(-6),
+            paddingLeft : theme.spacing(6)
+        }
+    },
+    title : {
+        fontSize : '26px',
+        marginBottom : theme.spacing(2),
+        fontFamily: 'Arial, Helvetica, sans-serif'
+    },
+    count : {
+        fontSize : '15px'
     },
     votesCount : {
         fontSize: '20px',
@@ -46,7 +65,7 @@ const useStyles = makeStyles((theme)=>({
     accordionLeft : {
         [theme.breakpoints.up('sm')]: {
             paddingRight : theme.spacing(3),
-        },    
+        }, 
         marginTop: theme.spacing(1.2)
     },
     accordionLeftDetails: {
@@ -109,8 +128,18 @@ const useStyles = makeStyles((theme)=>({
 
 
 function Records() {
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = React.useState(RecordsData);
     const classes = useStyles();
+    const toggle = (i) => {
+        var newArr = [];
+        newArr = [...expanded, newArr];
+        if (newArr[i].expanded === false)
+            newArr[i].expanded = true;
+        else
+            newArr[i].expanded = false;
+        
+        setExpanded(newArr);
+    }
     const CardContent = () => (
         <div>
             <p className={classes.aboutTitle}>About StackoverflowWarehouse</p>
@@ -130,15 +159,19 @@ function Records() {
         <Grid container>
             <Grid item sm={3}></Grid>
             <Grid item sm={6} xs={12}>
+                <div className={classes.header}>
+                    <span className={classes.title}>All Questions</span>
+                    <span className={classes.count}>222,44 Bookmarked Questions</span>
+                </div>
                 <div className = {classes.root}>
                     {
-                    RecordsData.map((Record)=>( 
-                    <Accordion square={true} elevation={0}>
+                    RecordsData.map((Record, index)=>( 
+                    <Accordion elevation={0} expanded={!expanded[index].expanded}>
                         <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                         >
-                         <Grid container className={classes.accordionSummary}>
+                        <Grid container className={classes.accordionSummary}>
                             <Grid item xs={2} className={classes.accordionLeft}>
                                 <div className={classes.accordionLeftDetails}>
                                     <span className={classes.votesCount}>{Record.votes}</span>
@@ -179,15 +212,20 @@ function Records() {
                                 <br/>
                                 <div className={classes.expandIcon}>
                                     {
-                                       !expanded ? <ExpandMoreIcon/> : <ExpandLessIcon/>
+                                        expanded[index].expanded ? <ExpandMoreIcon onClick={() => toggle(index)}/> : <ExpandLessIcon onClick={()=>toggle(index)}/>
                                     }
                                 </div>
                             </Grid>
-                         </Grid>
+                        </Grid>
                         </AccordionSummary>
-                        <AccordionDetails>
-                        <Typography>
-                        </Typography>
+                        <AccordionDetails className={classes.accordionDetails1}>
+                                <RecordAccordionDetail 
+                                displayName={Record.expandedInfo.owner.displayName}
+                                dp = {Record.expandedInfo.owner.dp}
+                                user_info_link={Record.expandedInfo.owner.user_info_link}
+                                reputation = {Record.expandedInfo.owner.reputation}
+                                creation_date={Record.expandedInfo.creation_date}
+                                bookmark_date={Record.expandedInfo.bookmark_date}/>
                         </AccordionDetails>
                     </Accordion> 
                     ))
@@ -199,7 +237,7 @@ function Records() {
                     <Card content={CardContent()} background="#FDF7E3"/>
                 </div>
             </Grid>
-        </Grid>
+        </Grid>   
     )
 }
 

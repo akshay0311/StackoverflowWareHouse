@@ -7,18 +7,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import {Public} from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles((theme)=>({
-    root1 : {
-        [theme.breakpoints.down('sm')]: {
-            display: 'none'
-        }
-    },
-    root2 : {
-        [theme.breakpoints.up('sm')]: {
-            display: 'none'
-        }
-    },
     drawer:{
         height: 'calc(100% - 60px)',
         top: '60px'
@@ -97,16 +88,16 @@ export default function SideMenu({anchorState}) {
 
     return (
         <>
-            <div className={classes.root1}>
-                <Drawer variant='persistent'  open classes={{paper:classes.drawer}}>
+            <Hidden smDown>
+                <Drawer variant='permanent'  open classes={{paper:classes.drawer}}>
                     {list()}
                 </Drawer>
-            </div>
-            <div className={classes.root2}>
+            </Hidden>
+            <Hidden smUp>
                 <Drawer  open={anchorState} classes={{paper:classes.drawer}}>
                     {list()}
                 </Drawer>
-            </div>
+            </Hidden>
         </>
     )
 }
