@@ -91,7 +91,10 @@ const useStyles = makeStyles((theme)=>({
     questionLink : {
         fontSize : "14px",
         textDecoration : 'none',
-        color : "#0077CC"
+        color : "#0077CC",
+        '&:hover':{
+            color : '#0095FF'
+        }
     },
     tagSection : {
         display: 'flex'
@@ -132,12 +135,8 @@ function Records() {
     const classes = useStyles();
     const toggle = (i) => {
         var newArr = [];
-        newArr = [...expanded, newArr];
-        if (newArr[i].expanded === false)
-            newArr[i].expanded = true;
-        else
-            newArr[i].expanded = false;
-        
+        newArr = expanded.slice();
+        newArr[i].expanded = !newArr[i].expanded;
         setExpanded(newArr);
     }
     const CardContent = () => (
@@ -166,7 +165,7 @@ function Records() {
                 <div className = {classes.root}>
                     {
                     RecordsData.map((Record, index)=>( 
-                    <Accordion elevation={0} expanded={!expanded[index].expanded}>
+                    <Accordion elevation={0} expanded={expanded[index].expanded} onClick={() => toggle(index)}>
                         <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"
@@ -212,7 +211,7 @@ function Records() {
                                 <br/>
                                 <div className={classes.expandIcon}>
                                     {
-                                        expanded[index].expanded ? <ExpandMoreIcon onClick={() => toggle(index)}/> : <ExpandLessIcon onClick={()=>toggle(index)}/>
+                                        expanded[index].expanded ?<ExpandLessIcon/>:<ExpandMoreIcon/> 
                                     }
                                 </div>
                             </Grid>

@@ -15,7 +15,7 @@ export const RecordsData = [{
         },
         creation_date: "1618666848",
         bookmark_date: "1618666848",
-        expanded : true
+        expanded : false
     }
 },{
     votes : 10,
@@ -34,7 +34,7 @@ export const RecordsData = [{
         },
         creation_date: "1618666848",
         bookmark_date: "1618666848",
-        expanded : true
+        expanded : false
     }
 },{
     votes : 10,
@@ -53,6 +53,6 @@ export const RecordsData = [{
         },
         creation_date: "1618666848",
         bookmark_date: "1618666848",
-        expanded : true
+        expanded : false
     }   
 }]
