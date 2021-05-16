@@ -37,7 +37,9 @@ const useStyles = makeStyles((theme)=>({
     },
     logo: {
         [theme.breakpoints.down('sm')]:{
-            width: '40px'
+            width: '40px',
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1)
         },
         width:"50px",
         paddingBottom: theme.spacing(2),
@@ -54,7 +56,7 @@ const useStyles = makeStyles((theme)=>({
     },
     paper: {
         [theme.breakpoints.down('sm')] : {
-            width : 200,
+            width : 130,
             marginLeft:0
         },
         marginLeft: theme.spacing(6),
