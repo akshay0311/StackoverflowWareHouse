@@ -12,7 +12,10 @@ import Hidden from '@material-ui/core/Hidden';
 const useStyles = makeStyles((theme)=>({
     drawer:{
         height: 'calc(100% - 60px)',
-        top: '60px'
+        top: '60px',
+        [theme.breakpoints.up('sm')]: {
+            width: "21%"
+        }
     },
     list: {
         width: 250,

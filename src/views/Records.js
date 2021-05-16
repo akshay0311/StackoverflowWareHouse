@@ -61,9 +61,9 @@ const useStyles = makeStyles((theme)=>({
     },
     accordionLeft : {
         marginTop: theme.spacing(1.2),
-        [theme.breakpoints.down('sm')]: {
-            paddingRight: theme.spacing(0.5)
-        }   
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: theme.spacing(-3)
+        }
     },
     accordionLeftDetails: {
         display : 'flex',
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme)=>({
     accordionCenter : {
         [theme.breakpoints.down('sm')]:{
             paddingLeft: theme.spacing(0.5),
-        }
+        },
     },
     accordionRight : {
         [theme.breakpoints.down('sm')]:{
@@ -86,7 +86,10 @@ const useStyles = makeStyles((theme)=>({
         color: '#696969'
     },
     questionLink : {
-        fontSize : "13px",
+        [theme.breakpoints.down('sm')]:{
+            fontSize: "13px"
+        },
+        fontSize : "14px",
         textDecoration : 'none',
         color : "#0077CC",
         '&:hover':{
