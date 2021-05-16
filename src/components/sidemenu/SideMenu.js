@@ -76,14 +76,14 @@ export default function SideMenu({anchorState}) {
               </ListItem>
             ))}
             <div className={classes.teams}>
-                <p><strong>Stack Overflow for Teams – </strong>Collaborate and share knowledge with a private group.</p>
+                <p><strong>Stack Overflow for Sharing – </strong>Collaborate and share knowledge with your peers.</p>
                 <img src = "https://cdn.sstatic.net/Img/teams/teams-illo-free-sidebar-promo.svg?v=47faa659a05e"
                     height="114" width="139" alt="team" className={classes.teamImage}/>
             </div>
             <div className={classes.teamButtonSection}>
-                <Button variant="contained" className={classes.createTeamButton}>Create a free team</Button>
+                <Button variant="contained" className={classes.createTeamButton}>Share your findings</Button>
                 <br/>
-                <Button className={classes.whatisTeamButton}>What is teams ?</Button>
+                <Button className={classes.whatisTeamButton}>What is share ?</Button>
             </div>    
             </List>
         </div>
