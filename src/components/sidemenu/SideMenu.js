@@ -21,9 +21,9 @@ const useStyles = makeStyles((theme)=>({
     listItemText:{
         margin: 0,
         marginLeft: theme.spacing(3),
-        color: '#6A737C',
         '&:hover': {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            background: "lightGrey"
         }
     },
     icon : {
@@ -59,7 +59,7 @@ export default function SideMenu({anchorState}) {
     const list = () => (
         <div className={classes.list} role="presentation">
             <List>
-            {['Home','PUBLIC','Questions', 'Tags', 'Users', 'FIND A JOB', "Jobs", "Companies", "TEAMS"].map((text, index) => (
+            {['Home','PUBLIC','Questions', 'Tags', 'Users'].map((text, index) => (
               <ListItem key={text}>
                 {
                 index === 0 || index === 1 || index === 5 || index === 8? 
