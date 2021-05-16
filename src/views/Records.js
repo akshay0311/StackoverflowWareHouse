@@ -58,15 +58,12 @@ const useStyles = makeStyles((theme)=>({
     },
     accordionSummary : {
         display: 'flex',
-        [theme.breakpoints.down('sm')]: {
-            marginLeft: theme.spacing(0.5)
-        }
     },
     accordionLeft : {
-        [theme.breakpoints.up('sm')]: {
-            paddingRight : theme.spacing(3),
-        }, 
-        marginTop: theme.spacing(1.2)
+        marginTop: theme.spacing(1.2),
+        [theme.breakpoints.down('sm')]: {
+            paddingRight: theme.spacing(0.5)
+        }   
     },
     accordionLeftDetails: {
         display : 'flex',
@@ -75,7 +72,7 @@ const useStyles = makeStyles((theme)=>({
     },
     accordionCenter : {
         [theme.breakpoints.down('sm')]:{
-            paddingLeft: theme.spacing(1.5),
+            paddingLeft: theme.spacing(0.5),
         }
     },
     accordionRight : {
