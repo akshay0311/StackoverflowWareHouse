@@ -3,9 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Public} from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 
@@ -56,49 +54,43 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 
-export default function SideMenu({anchorState}) {
+export default function SideMenu({anchorState , headerSideMenuContent}) {
     const classes = useStyles();
 
     const list = () => (
         <div className={classes.list} role="presentation">
             <List>
-            {['Home','PUBLIC','Questions', 'Tags', 'Users'].map((text, index) => (
+            {['Home','BookMarked Questions', 'All Questions'].map((text, index) => (
               <ListItem key={text}>
-                {
-                index === 0 || index === 1 || index === 5 || index === 8? 
-                <ListItemText secondary={text} />:
-                    index === 2 ? 
-                    <>
-                        <ListItemIcon className={classes.icon}><Public fontSize='small'/></ListItemIcon><ListItemText secondary={text}/>
-                    </>:
                 <ListItemText className={classes.listItemText} secondary={text} />
-                }
               </ListItem>
             ))}
             <div className={classes.teams}>
-                <p><strong>Stack Overflow for Sharing – </strong>Collaborate and share knowledge with your peers.</p>
+                <strong>Stack Overflow for Sharing – </strong>
+                <br/>
+                <span>Bookmark all your findings in Stackoverflow.</span>
                 <img src = "https://cdn.sstatic.net/Img/teams/teams-illo-free-sidebar-promo.svg?v=47faa659a05e"
                     height="114" width="139" alt="team" className={classes.teamImage}/>
-            </div>
-            <div className={classes.teamButtonSection}>
-                <Button variant="contained" className={classes.createTeamButton}>Share your findings</Button>
-                <br/>
-                <Button className={classes.whatisTeamButton}>What is share ?</Button>
-            </div>    
+            </div>  
             </List>
         </div>
     )
+    console.log(headerSideMenuContent);
 
     return (
         <>
             <Hidden smDown>
-                <Drawer variant='permanent'  open classes={{paper:classes.drawer}}>
-                    {list()}
-                </Drawer>
+                { headerSideMenuContent === undefined ? 
+                    <Drawer variant='permanent'  open classes={{paper:classes.drawer}}>
+                        {list()}
+                    </Drawer>: null
+                }
             </Hidden>
             <Hidden smUp>
                 <Drawer  open={anchorState} classes={{paper:classes.drawer}}>
-                    {list()}
+                    { 
+                        headerSideMenuContent ? headerSideMenuContent : list()
+                    }
                 </Drawer>
             </Hidden>
         </>
