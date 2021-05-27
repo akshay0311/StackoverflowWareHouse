@@ -26,10 +26,6 @@ const useStyles = makeStyles((theme)=>({
         fontSize : '14px',
         textDecoration : 'none'
     },
-    reputation : {
-        fontSize : '14px',
-        color: "grey" 
-    },
     askedTime : {
         fontSize : '14px',
         color : 'grey'
@@ -53,7 +49,7 @@ function RecordAccordionDetail({user_info_link, displayName,dp,reputation, creat
     const bookmark_day = time.timeStamp2Utc(bookmark_date);
     return (
         <Grid container>
-                <Grid item item xs={2}></Grid>
+                <Grid item xs={2}></Grid>
                 <Grid item xs= {8}>
                     <div className={classes.root}>
                         <div className={classes.askedTime}>asked: <b>{time_date}</b></div>
@@ -61,7 +57,6 @@ function RecordAccordionDetail({user_info_link, displayName,dp,reputation, creat
                             <img src={dp} className={classes.img}/>
                             <div className={classes.nameSection}>
                                 <span><a className={classes.displayName} href={user_info_link}>{displayName}</a></span>
-                                <span className={classes.reputation}>{reputation}</span>
                             </div>
                         </div>
                         <br/>

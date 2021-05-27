@@ -238,13 +238,12 @@ function Records(){
                         </Grid>
                         </AccordionSummary>
                         <AccordionDetails className={classes.accordionDetails1}>
-                                {/* <RecordAccordionDetail 
-                                displayName={Record.expandedInfo.owner.displayName}
-                                dp = {Record.expandedInfo.owner.dp}
-                                user_info_link={Record.expandedInfo.owner.user_info_link}
-                                reputation = {Record.expandedInfo.owner.reputation}
-                                creation_date={Record.expandedInfo.creation_date}
-                                bookmark_date={Record.expandedInfo.bookmark_date}/> */}
+                              <RecordAccordionDetail 
+                                displayName={question.displayname}
+                                dp = {question.dp_link}
+                                user_info_link={question.user_info_link}
+                                creation_date={question.creation_date}
+                                bookmark_date={question.creation_date}/>
                         </AccordionDetails>
                     </Accordion> 
                     ))
