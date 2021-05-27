@@ -9,12 +9,12 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import {makeStyles} from "@material-ui/core/styles"; 
-import {RecordsData} from "../recordsData";
 import {aboutListData} from "../aboutListData";
 import {Create} from "@material-ui/icons";
 import {List,ListItem,ListItemText} from "@material-ui/core";
 import RecordAccordionDetail from "../components/RecordAccordionDetail";
-
+import {useQuery} from '@apollo/client';
+import {GET_ALL_BOOKMARKS_FOR_A_USER} from '../query/GET_BOOKMARKS.js';
 
 const useStyles = makeStyles((theme)=>({
     root : {
@@ -129,15 +129,35 @@ const useStyles = makeStyles((theme)=>({
     }
 }))
 
-
-function Records() {
-    const [expanded, setExpanded] = React.useState(RecordsData);
+function Records(){
+    const [questions, setQuestions] = React.useState();
+    const [expanded, setExpanded] = React.useState();
     const classes = useStyles();
     const toggle = (i) => {
         var newArr = [];
         newArr = expanded.slice();
-        newArr[i].expanded = !newArr[i].expanded;
+        newArr[i] = !newArr[i]
         setExpanded(newArr);
+    }
+    // Query 
+    const { loading, error, refetch } = useQuery(GET_ALL_BOOKMARKS_FOR_A_USER,
+        {
+            onCompleted: (data)=>{
+                setQuestions(data?.user_account?.bookmark_questions)
+            }
+        });
+    
+    React.useEffect(()=> {
+        console.log(`loaded`)
+        var new_arr = [];
+        questions?.forEach((q, index)=> {
+            new_arr[index] = false;
+        })
+        setExpanded(new_arr);
+    }, []);
+
+    if (loading) {
+        return <h1>Loading</h1>
     }
     const CardContent = () => (
         <div>
@@ -164,8 +184,8 @@ function Records() {
                 </div>
                 <div className = {classes.root}>
                     {
-                    RecordsData.map((Record, index)=>( 
-                    <Accordion elevation={0} expanded={expanded[index].expanded} onClick={() => toggle(index)}>
+                    questions?.map((question, index)=>( 
+                    <Accordion elevation={0} expanded={expanded[index]?.expanded} onClick={() => toggle(index)}>
                         <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"
@@ -173,33 +193,33 @@ function Records() {
                         <Grid container className={classes.accordionSummary}>
                             <Grid item xs={2} className={classes.accordionLeft}>
                                 <div className={classes.accordionLeftDetails}>
-                                    <span className={classes.votesCount}>{Record.votes}</span>
+                                    <span className={classes.votesCount}>{question.votes_count}</span>
                                     <span className={classes.votesText}>votes</span>
                                 </div>
                                 <br/>
                                 <div className={classes.accordionLeftDetails}>
-                                    <span className={classes.votesCount}>{Record.answersCount}</span>
+                                    <span className={classes.votesCount}>{question.answers_count}</span>
                                     <span className={classes.votesText}>answers</span>
                                 </div>
                                 <br/>
                                 <div className={classes.accordionLeftDetails}>
                                     <div className={classes.views}>
-                                        <span>{Record.viewsCount}</span>&nbsp;
+                                        <span>{question.views_count}</span>&nbsp;
                                         <span>views</span>
                                     </div>
                                 </div>
                             </Grid>
                             <Grid item xs={10} className={classes.accordionCenter}>
                                 <Typography variant="h6" className={classes.questionHeader}>
-                                    {Record.questionHeader}
+                                    {question.question_header}
                                 </Typography>
                                 <br/>
                                 <Typography variant = "h8">
-                                    <a className={classes.questionLink} href={Record.questionLink}>{Record.questionLink}</a>
+                                    <a className={classes.questionLink} href={question.question_link}>{question.question_link}</a>
                                 </Typography>
                                 <br/>
                                 <br/>
-                                <div className={classes.tagSection}>
+                               {/*  <div className={classes.tagSection}>
                                     {  
                                         Record.tags.map((tag)=> (
                                             <>
@@ -207,24 +227,24 @@ function Records() {
                                             </>    
                                         ))
                                     }
-                                </div>
+                                </div> */}
                                 <br/>
                                 <div className={classes.expandIcon}>
                                     {
-                                        expanded[index].expanded ?<ExpandLessIcon/>:<ExpandMoreIcon/> 
+                                        expanded[index]?.expanded ?<ExpandLessIcon/>:<ExpandMoreIcon/> 
                                     }
                                 </div>
                             </Grid>
                         </Grid>
                         </AccordionSummary>
                         <AccordionDetails className={classes.accordionDetails1}>
-                                <RecordAccordionDetail 
+                                {/* <RecordAccordionDetail 
                                 displayName={Record.expandedInfo.owner.displayName}
                                 dp = {Record.expandedInfo.owner.dp}
                                 user_info_link={Record.expandedInfo.owner.user_info_link}
                                 reputation = {Record.expandedInfo.owner.reputation}
                                 creation_date={Record.expandedInfo.creation_date}
-                                bookmark_date={Record.expandedInfo.bookmark_date}/>
+                                bookmark_date={Record.expandedInfo.bookmark_date}/> */}
                         </AccordionDetails>
                     </Accordion> 
                     ))
