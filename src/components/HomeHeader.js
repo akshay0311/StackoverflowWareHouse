@@ -17,6 +17,17 @@ const useStyles = makeStyles((theme)=>({
       color: "black",
       paddingTop: theme.spacing(0.5)
   },
+  list: {
+      width: 200
+  },
+  listItemText:{
+    margin: 0,
+    marginLeft: theme.spacing(3),
+    '&:hover': {
+        cursor: 'pointer',
+        background: "lightGrey"
+    }
+   },
   title : {
     [theme.breakpoints.down('sm')]: {
         display: 'none'
@@ -44,8 +55,11 @@ const useStyles = makeStyles((theme)=>({
         display : 'none'
     },
       background: "#0095FF",
-      color: "white"
-  }
+      color: "white",
+      '&:hover':{
+        background : "#0095FF"
+       }
+  },
 }))
 
 function HomeHeader() {
@@ -56,10 +70,10 @@ function HomeHeader() {
     }
 
     const headerMenu = () => (
-        <List>
+        <List className={classes.list}>
             {["HOME","ABOUT","GET EXTENSION", "CONTACT"].map((text, index) => (
                 <ListItem key={text}>
-                <ListItemText className={classes.listItemText} secondary={text} />
+                    <ListItemText className={classes.listItemText} secondary={text} />
                 </ListItem>
             ))}
         </List>
@@ -76,7 +90,6 @@ function HomeHeader() {
                     <span className={classes.menuItem}>HOME</span>
                     <span className={classes.menuItem}>ABOUT</span>
                     <span className={classes.menuItem}>GET EXTENSION</span>
-                    <span className={classes.menuItem}>CONTACT</span>
                 </div>
                 <Button elevation = {0} className={classes.getStartedButton}>Get Started</Button>
                 <IconButton edge="start" className={classes.menuButton} className={classes.menuIcon} onClick={handleClick}>

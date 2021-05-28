@@ -52,13 +52,6 @@ function Footer() {
                 </ul>
                 ))}
             </Grid>
-            <Grid item sm={4}>
-                {['Home','BookMarked Questions', 'All Questions'].map((text, index) => (
-                <ul>
-                    <li className={classes.link}>{text}</li>
-                </ul>
-                ))}
-            </Grid>
         </Grid>
     )
 }

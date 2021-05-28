@@ -121,15 +121,6 @@ function Signup() {
         <div className={classes.cardContent}>
             <form onSubmit={(e)=> handleForm(e)}>
                 <div>
-                    <strong className={classes.label}>Display name</strong><br/>
-                    <TextField 
-                    variant="outlined" 
-                    className= {classes.textField} 
-                    InputLabelProps={{shrink: false}} 
-                    size="small"
-                    onChange={(e)=> setUsername(e.target.value)}/>
-                </div><br/>
-                <div>
                     <strong className={classes.label}>Email</strong><br/>
                     <TextField 
                     variant = "outlined" 
@@ -149,12 +140,6 @@ function Signup() {
                 </div>
                 <div className={classes.passwordInfo}>
                 Passwords must contain at least eight characters, including at least 1 letter and 1 number.
-                </div><br/>
-                <div className={classes.reCaptcha}>
-                    <ReCAPTCHA
-                        sitekey="6LdhgKEaAAAAACJdYgPD3obsJvG3LYqtzkVa1KJV"
-                        onChange={captchaLoaded}
-                    /> 
                 </div>
                 <br/><br/>
                 <Button type='submit' varaint = "contained" className={classes.signupButton}>Signup Up</Button>
@@ -173,8 +158,6 @@ function Signup() {
                 <div className={classes.buttons}>
                     <Button variant="contained" className={classes.googleButton} startIcon = {<img src={GoogleLogo} className={classes.logo} alt="logo"/>}
                     >Sign up with Google</Button><br/>
-                    <Button variant="contained" className={classes.gitButton} startIcon = {<img src={GithubLogo} className={classes.logo}  alt="logo"/>}>
-                    Sign up with Github</Button><br/>
                     <Button variant="contained" className={classes.fbButton} startIcon = {<img src={FacebookLogo} className={classes.fbLogo}  alt="logo"/>}>
                     Sign up with Facebook</Button><br/>
                 </div>

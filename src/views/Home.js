@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme)=>({
     description : {
         position: "absolute",
         top: "30%",
-        left: "55%",
+        left: "57%",
         transform: "translate(-50%, -50%)",
         fontSize : "40px",
         fontWeight: "bold"
@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme)=>({
         [theme.breakpoints.down('sm')]: {
             top: "55%",
             left: "25%"
+        },
+        '&:hover':{
+            background : "#0095FF"
         }
     },
     aboutUsSection : {

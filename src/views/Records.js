@@ -231,7 +231,7 @@ function Records(){
                                 <br/>
                                 <div className={classes.expandIcon}>
                                     {
-                                        expanded[index]?.expanded ?<ExpandLessIcon/>:<ExpandMoreIcon/> 
+                                        expanded[index]?<ExpandLessIcon/>:<ExpandMoreIcon/> 
                                     }
                                 </div>
                             </Grid>

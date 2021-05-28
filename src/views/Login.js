@@ -113,8 +113,6 @@ function Login(props) {
                     <img src={Logo} className={classes.image} alt="logo"/><br/>
                     <Button variant="contained" className={classes.googleButton} startIcon = {<img src={GoogleLogo} className={classes.logo} alt="logo"/>}
                     >Login in with Google</Button><br/>
-                    <Button variant="contained" className={classes.gitButton} startIcon = {<img src={GithubLogo} className={classes.logo}  alt="logo"/>}>
-                    Login in with Github</Button><br/>
                     <Button variant="contained" className={classes.fbButton} startIcon = {<img src={FacebookLogo} className={classes.fbLogo}  alt="logo"/>}>Login in with Facebook</Button><br/>
                     <br/>
                     <Card content={CardContent()} width="23%"/><br/>
