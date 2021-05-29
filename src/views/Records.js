@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -14,7 +13,8 @@ import {Create} from "@material-ui/icons";
 import {List,ListItem,ListItemText} from "@material-ui/core";
 import RecordAccordionDetail from "../components/RecordAccordionDetail";
 import {useQuery} from '@apollo/client';
-import {GET_ALL_BOOKMARKS_FOR_A_USER} from '../query/GET_BOOKMARKS.js';
+import {GET_ALL_BOOKMARKS_FOR_A_USER} from '../queries/GET_BOOKMARKS.js';
+import {useAuth} from "../contexts/authContext";
 
 const useStyles = makeStyles((theme)=>({
     root : {
@@ -83,13 +83,16 @@ const useStyles = makeStyles((theme)=>({
         marginRight: theme.spacing(2),
     },
     questionHeader: {
-        color: '#696969'
+        color: '#696969',
+        [theme.breakpoints.down('sm')]:{
+            fontSize: "16px"
+        },
     },
     questionLink : {
         [theme.breakpoints.down('sm')]:{
-            fontSize: "13px"
+            fontSize: "14px"
         },
-        fontSize : "14px",
+        fontSize : "16px",
         textDecoration : 'none',
         color : "#0077CC",
         '&:hover':{
@@ -133,6 +136,9 @@ function Records(){
     const [questions, setQuestions] = React.useState();
     const [expanded, setExpanded] = React.useState();
     const classes = useStyles();
+    
+    const {currentUser} = useAuth();
+    console.log(typeof currentUser.email)
     const toggle = (i) => {
         var newArr = [];
         newArr = expanded.slice();
@@ -141,10 +147,10 @@ function Records(){
     }
     // Query 
     const { loading, error, refetch } = useQuery(GET_ALL_BOOKMARKS_FOR_A_USER,
-        {
+        {variables : {username : currentUser.email},
             onCompleted: (data)=>{
                 setQuestions(data?.user_account?.bookmark_questions)
-            }
+            },
         });
     
     React.useEffect(()=> {

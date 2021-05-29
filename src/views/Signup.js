@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from "@material-ui/core/styles"; 
 import GoogleLogo from "../images/logo2.png";
-import GithubLogo from "../images/logo4.svg";
 import FacebookLogo from "../images/fb_logo.png";
 import Card from "../components/SimpleCard";
-import ReCAPTCHA from "react-google-recaptcha";
-
+import { useAuth } from "../contexts/authContext";
+import {useHistory} from 'react-router-dom';
+import {useMutation} from '@apollo/client';
+import {ADD_USER} from "../queries/ADD_USER";
 
 const useStyles = makeStyles((theme)=>({
     buttons:{
@@ -106,20 +107,21 @@ const useStyles = makeStyles((theme)=>({
 
 function Signup() {
     const classes = useStyles();
-    const [email, setEmail] = React.useState(null);
-    const [username, setUsername] = React.useState(null);
-    const [password, setPassword] = React.useState(null);
-    function captchaLoaded () {
-        console.log(`Captcha Loaded`);
-    }
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const { signup} = useAuth();
+    const history = useHistory();
+    const [addUser, { data }] = useMutation(ADD_USER);
 
-    const handleForm = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
+        await signup(emailRef.current.value, passwordRef.current.value);
+        addUser({ variables: { username: emailRef.current.value, password: passwordRef.current.value} });
+        history.push("/");
     }
-    
     const CardContent = () => (
         <div className={classes.cardContent}>
-            <form onSubmit={(e)=> handleForm(e)}>
+            <form>
                 <div>
                     <strong className={classes.label}>Email</strong><br/>
                     <TextField 
@@ -127,7 +129,7 @@ function Signup() {
                     className= {classes.textField} 
                     InputLabelProps={{shrink: false}} 
                     size="small"
-                    onChange={(e)=> setEmail(e.target.value)}/>
+                    inputRef = {emailRef}/>
                 </div><br/>
                 <div>
                     <strong className={classes.label}>Password</strong><br/>
@@ -136,13 +138,13 @@ function Signup() {
                     className= {classes.textField} 
                     InputLabelProps={{shrink: false}} 
                     size="small"
-                    onChange={(e)=> setPassword(e.target.value)}/>
+                    inputRef = {passwordRef}/>
                 </div>
                 <div className={classes.passwordInfo}>
                 Passwords must contain at least eight characters, including at least 1 letter and 1 number.
                 </div>
                 <br/><br/>
-                <Button type='submit' varaint = "contained" className={classes.signupButton}>Signup Up</Button>
+                <Button type='submit' varaint = "contained" className={classes.signupButton} onClick={handleSignup}>Signup Up</Button>
             </form> 
             <br/>
         </div>    

@@ -16,6 +16,10 @@ import SideMenu from "../sidemenu/SideMenu";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {autocompleteTags} from "./autoCompleteTags";
 import TextField from '@material-ui/core/TextField';
+import { useAuth } from "../../contexts/authContext";
+import {Link} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme)=>({
     root : {
@@ -148,6 +152,9 @@ const useStyles = makeStyles((theme)=>({
     autoComplete : {
         marginLeft : theme.spacing(3),
         marginRight : theme.spacing(3)
+    },
+    link: {
+        textDecoration: "none"
     }
 }));
 
@@ -159,6 +166,10 @@ export default function Header({width}) {
     const [anchorState, setAnchorState] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [leftMenu, setLeftMenu] = React.useState(false);
+    
+    const history = useHistory();
+    const {logout} = useAuth();
+
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -169,6 +180,11 @@ export default function Header({width}) {
     const handleLeftMenu = () => {
         setLeftMenu(!leftMenu)
         setAnchorState(!anchorState)
+    }
+
+    const handleSignout = () => {
+        history.push("/");
+        logout()
     }
 
     const AutocompleteSection = () => (
@@ -192,7 +208,6 @@ export default function Header({width}) {
             </Button>  
         </div>    
     )
-
     return (
         <div className = {classes.root}>
             <AppBar position="fixed" className={classes.appBar}>
@@ -227,8 +242,21 @@ export default function Header({width}) {
                             </Paper>
                         </Menu>
                     </Paper>
-                    <Button variant="contained" className={classes.loginInButton}>Log in</Button>
-                    <Button variant="contained" className={classes.signUpButton}>Sign up</Button>
+                    {
+                        window.location.pathname !== "/records" ?
+                        <>
+                            <Link to ="/"  className={classes.link}>
+                                <Button variant="contained" className={classes.loginInButton}>Log in</Button>
+                            </Link>
+                            <Link to ="/signup"  className={classes.link}>
+                                <Button variant="contained" className={classes.signUpButton}>Sign up</Button>
+                            </Link>
+                        </>
+                        :
+                        <Button variant="contained" className={classes.signUpButton}
+                         onClick = {handleSignout}
+                        >Log out</Button>
+                    }
                 </Toolbar>
             </AppBar>
       </div>

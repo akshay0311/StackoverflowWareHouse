@@ -4,7 +4,6 @@ import Drawer from "@material-ui/core/Drawer";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles((theme)=>({
@@ -50,8 +49,23 @@ const useStyles = makeStyles((theme)=>({
     whatisTeamButton: {
         fontSize : '10px',
         boxShadow : 'none',
+    },
+    link: {
+        textDecoration: "none"
     }
 }))
+
+const menus =   [
+                {
+                    name:'Home',
+                    link: "/home"
+                },
+                 {
+                    name: 'All Questions',
+                    link: "https://stackoverflow.com/questions"
+                 }
+                ]
+
 
 
 export default function SideMenu({anchorState , headerSideMenuContent}) {
@@ -60,9 +74,11 @@ export default function SideMenu({anchorState , headerSideMenuContent}) {
     const list = () => (
         <div className={classes.list} role="presentation">
             <List>
-            {['Home','BookMarked Questions', 'All Questions'].map((text, index) => (
-              <ListItem key={text}>
-                <ListItemText className={classes.listItemText} secondary={text} />
+            {menus.map((menu, index) => (
+              <ListItem key={menu.name}>
+                <a href={menu.link} className = {classes.link}>
+                    <ListItemText className={classes.listItemText} secondary={menu.name} />
+                </a>
               </ListItem>
             ))}
             <div className={classes.teams}>

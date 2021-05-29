@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import Card from "../components/SimpleCard";
 import {makeStyles} from "@material-ui/core/styles"; 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Logo from "../images/logo.png";
 import GoogleLogo from "../images/logo2.png";
-import GithubLogo from "../images/logo4.svg";
 import FacebookLogo from "../images/fb_logo.png";
-import {Link} from "react-router-dom";
 import Grid from '@material-ui/core/Grid'
+import { useAuth } from "../contexts/authContext";
+import { Link, useHistory } from "react-router-dom";
+
+
 
 const useStyles = makeStyles((theme)=>({
     root:{
@@ -89,19 +91,28 @@ const useStyles = makeStyles((theme)=>({
 
 
 function Login(props) {
+    const history = useHistory()
     const classes = useStyles();
+    const { login } = useAuth();
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        await login(emailRef.current.value, passwordRef.current.value);
+        history.push("/records");
+    }
     const CardContent = () => (
         <div className={classes.cardContent}>
             <div>
                 <strong className={classes.label}>Email</strong><br/>
-                <TextField variant="outlined" className= {classes.textField} InputLabelProps={{shrink: false}} size="small"/>
+                <TextField variant="outlined" className= {classes.textField} InputLabelProps={{shrink: false}} size="small" inputRef={emailRef}/>
             </div><br/>
             <div>
                 <strong className={classes.label}>Password</strong><br/>
-                <TextField variant = "outlined" className= {classes.textField} InputLabelProps={{shrink: false}} size="small"/>
+                <TextField variant = "outlined" className= {classes.textField} InputLabelProps={{shrink: false}} size="small" inputRef={passwordRef}/>
             </div>
             <br/><br/>
-            <Button variant = "contained" className={classes.loginButton}>Login</Button>
+            <Button variant = "contained" className={classes.loginButton} onClick = {handleLogin} >Login</Button>
         </div>    
     )
     

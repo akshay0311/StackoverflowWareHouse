@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 
 export const GET_ALL_BOOKMARKS_FOR_A_USER = gql`
-  {
-    user_account(user_id: 1){
+  query RootQueryType($username: String){
+    user_account(username: $username){
       user_id,
       username,
       password,
