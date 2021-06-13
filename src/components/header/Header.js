@@ -168,7 +168,7 @@ export default function Header({width}) {
     const [leftMenu, setLeftMenu] = React.useState(false);
     
     const history = useHistory();
-    const {logout} = useAuth();
+    const {logout, currentUser} = useAuth();
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -253,9 +253,12 @@ export default function Header({width}) {
                             </Link>
                         </>
                         :
-                        <Button variant="contained" className={classes.signUpButton}
-                         onClick = {handleSignout}
-                        >Log out</Button>
+                        <>
+                            <span style={{color: "black"}}>{currentUser.email}</span>
+                            <Button variant="contained" className={classes.signUpButton}
+                            onClick = {handleSignout}
+                            >Log out</Button>
+                        </>
                     }
                 </Toolbar>
             </AppBar>

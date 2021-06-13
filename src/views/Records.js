@@ -15,6 +15,8 @@ import RecordAccordionDetail from "../components/RecordAccordionDetail";
 import {useQuery} from '@apollo/client';
 import {GET_ALL_BOOKMARKS_FOR_A_USER} from '../queries/GET_BOOKMARKS.js';
 import {useAuth} from "../contexts/authContext";
+import Loader from "../images/Book.gif";
+
 
 const useStyles = makeStyles((theme)=>({
     root : {
@@ -129,6 +131,16 @@ const useStyles = makeStyles((theme)=>({
     expandIcon : {
         textAlign : 'center',
         color: '#696969'
+    },
+    loader: {
+        position:"absolute",
+        top:"0",
+        left:"0",
+        right:"0",
+        bottom:"0",
+        margin:"auto",
+        height: "10%",
+        width : "10%"
     }
 }))
 
@@ -154,7 +166,6 @@ function Records(){
         });
     
     React.useEffect(()=> {
-        console.log(`loaded`)
         var new_arr = [];
         questions?.forEach((q, index)=> {
             new_arr[index] = false;
@@ -163,7 +174,7 @@ function Records(){
     }, []);
 
     if (loading) {
-        return <h1>Loading</h1>
+        return <img src={Loader} className={classes.loader}/>
     }
     const CardContent = () => (
         <div>
@@ -185,8 +196,8 @@ function Records(){
             <Grid item sm={3}></Grid>
             <Grid item sm={6} xs={12}>
                 <div className={classes.header}>
-                    <span className={classes.title}>All Questions</span>
-                    <span className={classes.count}>222,44 Bookmarked Questions</span>
+                    <span className={classes.title}>Bookmarked Questions</span>
+                    <span className={classes.count}>{questions?.length} Bookmarked Questions</span>
                 </div>
                 <div className = {classes.root}>
                     {

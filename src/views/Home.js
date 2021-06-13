@@ -1,5 +1,4 @@
 import React from 'react'
-import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles"; 
 import HomeHeader from "../components/HomeHeader";
 import Footer from "../components/Footer.js";
@@ -40,6 +39,9 @@ const useStyles = makeStyles((theme)=>({
             background : "#0095FF"
         }
     },
+    getStartedLink: {
+        textDecoration: "none"
+    },
     aboutUsSection : {
         textAlign: "center"
     },
@@ -60,7 +62,9 @@ function Home() {
                 <div className={classes.container}>
                     <img src = {heroBg} className={classes.img}/>
                     <span className={classes.description}>One place to keep all your Stackoverflow bookmarks</span>
-                    <Button className={classes.getStartedButton}>GET STARTED</Button>
+                    <a href="/signup" className={classes.getStartedLink}>
+                        <Button className={classes.getStartedButton}>GET STARTED</Button>
+                    </a>
                 </div>
             </section>
             <br/><br/>
